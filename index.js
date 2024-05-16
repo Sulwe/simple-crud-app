@@ -2,8 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
     res.send("Hello from Node API Server")
+});
+
+app.post('/api/products', (req, res) => {
+    console.log(req.body);
+    res.send(req.body);
 });
 
 mongoose.connect("mongodb+srv://cypriansulwecs:8cSkRnVWt8JLnx33@cluster0.xsxvbwl.mongodb.net/Simple-Crud-App?retryWrites=true&w=majority&appName=Cluster0")
