@@ -41,6 +41,22 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
+app.put('/api/product/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const product = await Product.findByIdAndUpdate(id, req.body);
+
+        if(!product) {
+            return res.status(404).json({message: "Product not found"});
+        }
+        const updatedProduct = await Product.findById(id);
+        res.status(200).json(updatedProduct);
+    }
+    catch (error) {
+        res.status(500).json({message: error.message});
+    }
+});
+
 mongoose.connect("mongodb+srv://cypriansulwecs:8cSkRnVWt8JLnx33@cluster0.xsxvbwl.mongodb.net/Simple-Crud-App?retryWrites=true&w=majority&appName=Cluster0")
 .then(() => {
     console.log("Connected to database!");
